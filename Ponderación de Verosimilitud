@@ -1,0 +1,28 @@
+# Importamos la librería necesaria
+import numpy as np
+
+# Datos de entrenamiento
+edades = [25, 30, 35, 22, 28, 45, 20, 33]
+historial_compras = [0, 1, 1, 0, 1, 1, 0, 1]  # 0: No compró, 1: Compró
+
+# Función para calcular la probabilidad condicional P(compra | edad, historial)
+def calcular_probabilidad_condicional(edad, historial):
+    # Contamos cuántas veces ocurre la combinación de edad y historial
+    ocurrencias = sum([(e, h) == (edad, historial) for e, h in zip(edades, historial_compras)])
+    
+    # Contamos cuántas veces ocurre la edad dada
+    ocurrencias_edad = edades.count(edad)
+    
+    # Calculamos la probabilidad condicional usando la ponderación de verosimilitud
+    probabilidad_condicional = ocurrencias / ocurrencias_edad if ocurrencias_edad > 0 else 0
+    
+    return probabilidad_condicional
+
+# Ejemplo de predicción para una nueva persona
+nueva_persona_edad = 28
+nueva_persona_historial = 1
+
+# Calculamos la probabilidad condicional para comprar dado la edad e historial
+probabilidad_compra = calcular_probabilidad_condicional(nueva_persona_edad, nueva_persona_historial)
+
+print(f"La probabilidad de compra para una persona de {nueva_persona_edad} años con historial de compras 1 es: {probabilidad_compra}")
