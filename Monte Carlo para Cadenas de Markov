@@ -1,0 +1,19 @@
+import random
+
+def monte_carlo_markov_chain(steps):
+    position = 0  # Posición inicial
+    for _ in range(steps):
+        # Generar un número aleatorio para decidir el siguiente paso
+        step = random.choice([-1, 1])
+        
+        # Actualizar la posición
+        position += step
+        
+        # Imprimir la posición actual en cada paso
+        print(f'Paso: {_+1}, Posición: {position}')
+
+# Número de pasos en la cadena de Markov
+num_steps = 10
+
+# Simular la cadena de Markov usando el algoritmo de Monte Carlo
+monte_carlo_markov_chain(num_steps)
