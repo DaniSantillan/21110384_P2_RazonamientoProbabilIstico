@@ -1,0 +1,17 @@
+import numpy as np
+
+# Supongamos que tenemos dos eventos A y B
+# P(A) es la probabilidad de A
+# P(B|A) es la probabilidad condicional de B dado A
+
+# Definimos las probabilidades
+P_A = 0.3  # Probabilidad de A
+P_B_dado_A = 0.6  # Probabilidad condicional de B dado A
+
+# Calculamos P(A y B) usando la Regla de la Cadena
+P_A_y_B = P_A * P_B_dado_A
+
+# Mostramos los resultados
+print(f'P(A): {P_A}')
+print(f'P(B|A): {P_B_dado_A}')
+print(f'P(A y B): {P_A_y_B}')
