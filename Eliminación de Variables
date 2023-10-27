@@ -1,0 +1,41 @@
+from pomegranate import *
+
+# Definir las distribuciones de probabilidad condicional
+prob_A = DiscreteDistribution({'A0': 0.2, 'A1': 0.8})
+prob_B = DiscreteDistribution({'B0': 0.5, 'B1': 0.5})
+prob_C = DiscreteDistribution({'C0': 0.6, 'C1': 0.4})
+
+# Definir las tablas de probabilidad condicional
+tabla_A_B = ConditionalProbabilityTable(
+    [['A0', 'B0', 0.7],
+     ['A0', 'B1', 0.3],
+     ['A1', 'B0', 0.4],
+     ['A1', 'B1', 0.6]], [prob_A, prob_B])
+
+tabla_A_C = ConditionalProbabilityTable(
+    [['A0', 'C0', 0.5],
+     ['A0', 'C1', 0.5],
+     ['A1', 'C0', 0.8],
+     ['A1', 'C1', 0.2]], [prob_A, prob_C])
+
+# Definir los nodos y la red bayesiana
+nodo_A = Node(prob_A, name="A")
+nodo_B = Node(prob_B, name="B")
+nodo_C = Node(prob_C, name="C")
+
+nodo_A_B = Node(tabla_A_B, name="A|B")
+nodo_A_C = Node(tabla_A_C, name="A|C")
+
+red_bayesiana = BayesianNetwork("Ejemplo Red Bayesiana")
+red_bayesiana.add_nodes([nodo_A, nodo_B, nodo_C, nodo_A_B, nodo_A_C])
+red_bayesiana.add_edge(nodo_A, nodo_A_B)
+red_bayesiana.add_edge(nodo_B, nodo_A_B)
+red_bayesiana.add_edge(nodo_A, nodo_A_C)
+red_bayesiana.add_edge(nodo_C, nodo_A_C)
+
+# Eliminación de variables
+red_bayesiana.eliminate(['B', 'C'])
+
+# Calcular la probabilidad P(A|B, C)
+resultado = red_bayesiana.predict_proba({'A': None, 'B': 'B0', 'C': 'C1'})
+print(resultado)
