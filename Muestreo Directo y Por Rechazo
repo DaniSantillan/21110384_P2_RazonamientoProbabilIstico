@@ -1,0 +1,40 @@
+MUESTREO DIRECTO:
+
+import random
+
+# Número de muestras
+num_muestras = 10000
+
+# Realizar muestreo directo
+muestras_directas = [random.uniform(0, 1) for _ in range(num_muestras)]
+
+# Calcular la media de las muestras
+media_directa = sum(muestras_directas) / num_muestras
+
+print("Media (Muestreo Directo):", media_directa)
+
+
+MUESTREO POR RECHAZO:
+
+import random
+
+# Número de muestras
+num_muestras = 10000
+
+# Función de densidad de probabilidad (en este caso, para una distribución uniforme)
+def pdf_uniforme(x):
+    return 1 if 0 <= x <= 1 else 0
+
+# Realizar muestreo por rechazo
+muestras_rechazo = []
+for _ in range(num_muestras):
+    propuesta = random.uniform(0, 1)
+    aceptacion = random.uniform(0, 1)
+
+    if aceptacion <= pdf_uniforme(propuesta):
+        muestras_rechazo.append(propuesta)
+
+# Calcular la media de las muestras
+media_rechazo = sum(muestras_rechazo) / num_muestras
+
+print("Media (Muestreo Por Rechazo):", media_rechazo)
