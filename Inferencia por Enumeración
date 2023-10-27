@@ -1,0 +1,19 @@
+def inferencia_por_enumeracion():
+    # Definir el espacio muestral (resultados posibles del dado)
+    espacio_muestral = [1, 2, 3, 4, 5, 6]
+
+    # Definir la probabilidad de cada resultado (en un dado justo, todos son igualmente probables)
+    probabilidad_individual = 1 / len(espacio_muestral)
+
+    # Definir la variable aleatoria (en este caso, si el número es par)
+    def es_par(numero):
+        return numero % 2 == 0
+
+    # Calcular la probabilidad de que el resultado sea par utilizando inferencia por enumeración
+    probabilidad_par = sum(probabilidad_individual for resultado in espacio_muestral if es_par(resultado))
+
+    return probabilidad_par
+
+# Obtener el resultado e imprimirlo
+resultado = inferencia_por_enumeracion()
+print(f"La probabilidad de obtener un número par es: {resultado}")
