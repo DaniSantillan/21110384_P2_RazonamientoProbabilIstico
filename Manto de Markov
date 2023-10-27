@@ -1,0 +1,20 @@
+import numpy as np
+
+# Matriz de transición entre estados
+transitions = np.array([[0.8, 0.2],  # Soleado -> Soleado, Soleado -> Lluvioso
+                        [0.4, 0.6]]) # Lluvioso -> Soleado, Lluvioso -> Lluvioso
+
+# Estado inicial (probabilidad de estar soleado o lluvioso el primer día)
+initial_state = np.array([0.5, 0.5])
+
+# Simulación de la cadena de Markov
+num_days = 7
+current_state = np.random.choice(['Soleado', 'Lluvioso'], p=initial_state)
+
+print(f"Día 1: {current_state}")
+
+for day in range(2, num_days + 1):
+    # Calcula el próximo estado basado en la matriz de transición
+    current_state = np.random.choice(['Soleado', 'Lluvioso'], p=transitions[current_state == 'Soleado'])
+
+    print(f"Día {day}: {current_state}")
