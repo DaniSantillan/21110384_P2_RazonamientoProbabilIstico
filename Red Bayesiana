@@ -1,0 +1,21 @@
+from pgmpy.models import BayesianModel
+from pgmpy.estimators import ParameterEstimator
+from pgmpy.inference import VariableElimination
+import pandas as pd
+
+# Define la estructura de la red bayesiana
+modelo = BayesianModel([('Lluvia', 'Paraguas'), ('Lluvia', 'Resfriado')])
+
+# Crea un conjunto de datos de ejemplo
+datos = pd.DataFrame(data={'Lluvia': [0, 1, 1, 0, 1, 0, 0, 1],
+                            'Paraguas': [1, 1, 0, 0, 1, 1, 0, 1],
+                            'Resfriado': [0, 1, 1, 0, 0, 0, 1, 1]})
+
+# Aprende las probabilidades condicionales a partir de los datos
+modelo.fit(datos, estimator=ParameterEstimator)
+
+# Realiza inferencia para calcular la probabilidad de resfriado dado que llueve
+inference = VariableElimination(modelo)
+resultado = inference.query(variables=['Resfriado'], evidence={'Lluvia': 1})
+
+print(resultado)
